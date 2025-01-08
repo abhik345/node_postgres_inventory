@@ -6,6 +6,7 @@ const bodyParser = require("body-parser")
 const userRoutes = require("./routes/user/userRoutes");
 const productRoutes = require("./routes/product/productRoutes");
 const productImageRoutes = require("./routes/product-images/productImageRoutes");
+const supplierRoutes = require("./routes/supplier/supplierRoutes");
 
 const app = express();
 const port = 3000;
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use("/api/users", userRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/product-image", productImageRoutes);
+app.use("/api/supplier",supplierRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello this is the inventory Managemant app");

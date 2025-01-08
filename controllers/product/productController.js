@@ -1,4 +1,4 @@
-const {Product, ProductImage} = require("../../models");
+const {Product, ProductImage,Supplier} = require("../../models");
 
 
 
@@ -71,7 +71,8 @@ const getProductById = async (req,res) => {
                     model : ProductImage,
                     as : "images",
                     attributes : ["id","image_url"]
-                }
+                },
+                { model: Supplier, as: "suppliers" }
             ]
         })
         if(!singleProduct){

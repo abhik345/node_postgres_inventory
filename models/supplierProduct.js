@@ -1,33 +1,49 @@
 module.exports = (sequelize, DataTypes) => {
-    const SupplierProduct = sequelize.define(
-      "SupplierProduct",
-      {
-        id: {
-            type :DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey : true
+  const SupplierProduct = sequelize.define(
+    "SupplierProduct",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      supplierId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Suppliers",
+          key: "id",
         },
-        supplierId: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: "Suppliers",
-            key: "id",
-          },
-        },
-        productId: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: "Products", 
-            key: "id",
+        validate: {
+          isInt: true,
+          customValidator(value) {
+            if (typeof value !== "number") {
+              throw new Error("supplierId must be a number,not a string");
+            }
           },
         },
       },
-      {
-        timestamps: true,
-      }
-    );
-  
-    return SupplierProduct;
-  };
+      productId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Products",
+          key: "id",
+        },
+        validate: {
+          isInt: true,
+          customValidator(value) {
+            if (typeof value !== "number") {
+              throw new Error("productId must be a number,not a string");
+            }
+          },
+        },
+      },
+    },
+    {
+      timestamps: true,
+    }
+  );
+
+  return SupplierProduct;
+};

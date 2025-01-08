@@ -58,5 +58,14 @@ module.exports = (sequelize, DataTypes) => {
   },{
     timestamps : true
   });
+
+  Supplier.associate = (models) => {
+    Supplier.belongsToMany(models.Product, {
+      through: models.SupplierProduct,
+      foreignKey: "supplierId",
+      as: "products",
+    });
+  };
+  
   return Supplier
 };

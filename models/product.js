@@ -75,7 +75,12 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Product.associate = ((models)=>{
-        Product.hasMany(models.ProductImage, {foreignKey: "productId", as : "images"})
+        Product.hasMany(models.ProductImage, {foreignKey: "productId", as : "images"});
+        Product.belongsToMany(models.Supplier, {
+          through: models.SupplierProduct,
+          foreignKey: "productId",
+          as: "suppliers",
+        });
     })
   
     return Product;

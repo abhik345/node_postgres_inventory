@@ -8,6 +8,7 @@ const productRoutes = require("./routes/product/productRoutes");
 const productImageRoutes = require("./routes/product-images/productImageRoutes");
 const supplierRoutes = require("./routes/supplier/supplierRoutes");
 const supplierProductRoutes = require("./routes/supplier-product/spRoutes");
+const orderRoutes = require("./routes/order/orderRoutes");
 
 const app = express();
 const port = 3000;
@@ -21,6 +22,7 @@ app.use("/api/product", productRoutes);
 app.use("/api/product-image", productImageRoutes);
 app.use("/api/supplier",supplierRoutes);
 app.use("/api/supplier-product",supplierProductRoutes);
+app.use("/api/order",orderRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello this is the inventory Managemant app");

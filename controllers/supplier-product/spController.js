@@ -143,8 +143,60 @@ const getproductaccsupplier = async (req, res) => {
   }
 };
 
+const updateSp = async (req,res) => {
+  const {id} = req.params;
+  try {
+    const {productId,supplierId} = req.body;
+    const sp = await SupplierProduct.findByPk(id);
+    if(!sp){
+      return res.status(404).json({
+        status: 404,
+        message: "No Supplier Product Found"
+      })
+    }
+    if(productId) sp.productId = productId;
+    if(supplierId) sp.supplierId = supplierId;
+    await sp.save();
+    res.status(200).json({
+      status: 200,
+      message: "Supplier Product Updated Successfully",
+      data: sp
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message
+    })
+  }
+}
+
+const deleteSp = async (req,res) => {
+  const {id} = req.params;
+  try {
+    const sp = await SupplierProduct.findByPk(id);
+    if(!sp){
+      return res.status(404).json({
+        status: 404,
+        message: "No Supplier Product Found"
+      })
+    }
+    await sp.destroy();
+    res.status(200).json({
+      status : 200,
+      message : "deleted Successfully"
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message
+    })
+  }
+}
+
 module.exports = {
   createSp,
   getAllSp,
   getproductaccsupplier,
+  updateSp,
+  deleteSp
 };

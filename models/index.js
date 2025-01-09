@@ -24,7 +24,8 @@ db.User = require('./user')(sequelize, DataTypes);
 db.Product = require("./product")(sequelize,DataTypes);
 db.ProductImage = require("./productImage")(sequelize,DataTypes);
 db.Supplier = require("./supplier")(sequelize,DataTypes)
-db.SupplierProduct = require("./supplierProduct")(sequelize,DataTypes)
+db.SupplierProduct = require("./supplierProduct")(sequelize,DataTypes);
+db.Ordert = require("./ordert")(sequelize,DataTypes)
 
 
 db.sequelize.sync({ force: false }).then(() => {

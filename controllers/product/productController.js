@@ -61,38 +61,44 @@ const getAllProducts = async (req,res) => {
     }
 }
 
-const getProductById = async (req,res) => {
+const getProductById = async (req, res) => {
     try {
-        const {id} = req.params;
-        const singleProduct = await Product.findByPk(id,{
-            attributes : ["id","name","description","sku","quantity","price"],
-            include : [
+        const { id } = req.params;
+        const singleProduct = await Product.findByPk(id, {
+            attributes: ["id", "name", "description", "sku", "quantity", "price"],
+            include: [
                 {
-                    model : ProductImage,
-                    as : "images",
-                    attributes : ["id","image_url"]
+                    model: ProductImage,
+                    as: "images",
+                    attributes: ["id", "image_url"]
                 },
-                { model: Supplier, as: "suppliers" }
+                {
+                    model: Supplier,
+                    as: "suppliers",
+                    attributes: ["id", "name", "email", "phone_number", "address"],
+                }
             ]
-        })
-        if(!singleProduct){
+        });
+
+        if (!singleProduct) {
             return res.status(404).json({
-                status : 404,
-                message : "Product not found"
-            })
+                status: 404,
+                message: "Product not found"
+            });
         }
+
         res.status(200).json({
-            status : 200,
-            message : "Product Found",
-            data : singleProduct
-        })
+            status: 200,
+            message: "Product Found",
+            data: singleProduct
+        });
     } catch (error) {
         res.status(500).json({
-            status : 500,
-            message : error.message
-        })
+            status: 500,
+            message: error.message
+        });
     }
-}
+};
 
 const updateProductById = async (req,res) => {
     try {

@@ -1,7 +1,9 @@
 require("dotenv").config(".env");
 
 const express = require("express");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
+
 
 const userRoutes = require("./routes/user/userRoutes");
 const productRoutes = require("./routes/product/productRoutes");
@@ -9,6 +11,7 @@ const productImageRoutes = require("./routes/product-images/productImageRoutes")
 const supplierRoutes = require("./routes/supplier/supplierRoutes");
 const supplierProductRoutes = require("./routes/supplier-product/spRoutes");
 const orderRoutes = require("./routes/order/orderRoutes");
+const authRoutes = require("./routes/auth/authRoutes");
 
 const app = express();
 const port = 3000;
@@ -16,13 +19,15 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/product-image", productImageRoutes);
 app.use("/api/supplier",supplierRoutes);
 app.use("/api/supplier-product",supplierProductRoutes);
-app.use("/api/order",orderRoutes)
+app.use("/api/order",orderRoutes);
+app.use("/api/auth",authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello this is the inventory Managemant app");
